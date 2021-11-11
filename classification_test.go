@@ -31,16 +31,16 @@ type Resource struct {
 	Hint   dataclassifier.Classification
 }
 
-func (ac *Resource) AppendAttribute(attr *Attribute) {
-	ac.Hint = dataclassifier.Combine(ac.Hint, attr.Hint)
-	ac.Values = append(ac.Values, attr)
+func (r *Resource) AppendAttribute(attr *Attribute) {
+	r.Hint = dataclassifier.Combine(r.Hint, attr.Hint)
+	r.Values = append(r.Values, attr)
 }
 
-func (ac *Resource) Filter(fn func(attr *Attribute) bool) (resource Resource) {
-	resource.Values = make([]*Attribute, 0, len(ac.Values))
-	for i := 0; i < len(ac.Values); i++ {
-		if fn(ac.Values[i]) {
-			resource.AppendAttribute(ac.Values[i])
+func (r *Resource) Filter(fn func(attr *Attribute) bool) (resource Resource) {
+	resource.Values = make([]*Attribute, 0, len(r.Values))
+	for i := 0; i < len(r.Values); i++ {
+		if fn(r.Values[i]) {
+			resource.AppendAttribute(r.Values[i])
 		}
 	}
 	return resource
